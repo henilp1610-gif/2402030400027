@@ -1,1 +1,126 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicCraft | Create Your Story</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">ComicCraft 🎨</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h5 class="mb-3">Tools & Assets</h5>
+                <button class="btn btn-outline-primary mb-2 w-100" id="add-text-btn">Add Dialogue</button>
+                <div class="asset-item" onclick="addCharacter()">Character A</div>
+                <div class="asset-item" onclick="addCharacter()">Character B</div>
+                <div class="asset-item" onclick="changeBg()">Change Background</div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="canvas-container shadow-sm" id="main-canvas">
+                <div id="empty-msg">Select an asset to start your comic strip</div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+                <button class="btn btn-danger" id="clear-btn">Reset Canvas</button>
+                <button class="btn btn-success" id="save-btn">Download Comic</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
+body {
+    background-color: #f4f7f6;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #ffcc00 !important;
+}
+
+.asset-item {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.asset-item:hover {
+    background: #ffcc00;
+    border-color: #e6b800;
+}
+
+.canvas-container {
+    height: 500px;
+    background: #ffffff;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comic-element {
+    position: absolute;
+    padding: 10px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: move;
+}
+
+$(document).ready(function() {
+    
+    // Add Dialogue Bubble
+    $('#add-text-btn').on('click', function() {
+        $('#empty-msg').hide();
+        const bubble = $('<div class="comic-element">New Dialogue</div>');
+        bubble.css({
+            'top': Math.random() * 200 + 'px',
+            'left': Math.random() * 200 + 'px'
+        });
+        $('#main-canvas').append(bubble);
+    });
+
+    // Clear Canvas
+    $('#clear-btn').on('click', function() {
+        $('.comic-element').remove();
+        $('#empty-msg').show();
+        $('#main-canvas').css('background-color', '#ffffff');
+    });
+
+    // Save Alert
+    $('#save-btn').on('click', function() {
+        alert("Preparing your comic strip for download...");
+    });
+});
+
+function addCharacter() {
+    $('#empty-msg').hide();
+    alert("Character added to the workspace!");
+}
+
+function changeBg() {
+    $('#main-canvas').css('background-color', '#e3f2fd');
+}
